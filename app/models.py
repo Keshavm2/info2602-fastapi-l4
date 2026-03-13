@@ -1,6 +1,6 @@
 from sqlmodel import Field, SQLModel, Relationship
 from typing import Optional
-from pydantic import EmailStr   #insert at top of the file
+from pydantic import EmailStr   
 
 class Token(SQLModel):
     access_token: str
@@ -45,10 +45,15 @@ class Category(SQLModel, table=True):
 class TodoCreate(SQLModel):
     text:str
 
+class CategoryResponse(SQLModel):
+        id: Optional[int]
+        text: str
+
 class TodoResponse(SQLModel):
     id: Optional[int] = Field(primary_key=True, default=None)
     text:str
     done: bool = False
+    categories: list[CategoryResponse] = []
 
 class TodoUpdate(SQLModel):
     text: Optional[str] = None
